@@ -390,7 +390,7 @@ class MoneyField(models.DecimalField):
             frm = inspect.stack()[1]
             mod = inspect.getmodule(frm[0])
             # We need to return the numerical value if this is called by south
-            if mod.__name__ == 'south.db.generic':
+            if getattr(mod, '__name__', None) == 'south.db.generic':
                 return float(self.default.amount)
             return self.default
         else:
